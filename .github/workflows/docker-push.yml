@@ -36,9 +36,9 @@ jobs:
       - name: tag reverseproxy image to remote
         run:
           docker tag reverseproxy xtrahuman/reverseproxy:v1
-      - name: tag udagram-frontend image to remote
+      - name: tag udagram-frontend:local image to remote
         run:
-          docker tag udagram-frontend xtrahuman/udagram-frontend:v1
+          docker tag udagram-frontend:local xtrahuman/udagram-frontend:v1
 
       # - name: Run Trivy vulnerability scanner
       #   uses: aquasecurity/trivy-action@master
@@ -64,6 +64,6 @@ jobs:
       - name: Push reverseproxy Image to Docker Hub
         run:
           docker push xtrahuman/reverseproxy:v1
-      - name: Push Frontend Image to Docker Hub
+      - name: Push udagram-frontend Image to Docker Hub
         run:
           docker push xtrahuman/udagram-frontend:v1
