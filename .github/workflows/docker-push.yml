@@ -27,10 +27,18 @@ jobs:
       - name: Build Docker Image
         run:
           docker-compose -f docker-compose-build.yaml build --parallel # or repeat and use docker build -t udagram-api-feed ./udagram-api-feed
-          # docker tag udagram-api-feed xtrahuman/udagram-api-feed:v1
-          # docker tag udagram-api-user xtrahuman/udagram-api-user:v1
-          # docker tag reverseproxy xtrahuman/reverseproxy:v1
-          # docker tag udagram-frontend xtrahuman/udagram-frontend:v1
+      - name: tag udagram-api-feed image to remote
+        run:
+          docker tag udagram-api-feed xtrahuman/udagram-api-feed:v1
+      - name: tag udagram-api-user image to remote
+        run:
+          docker tag udagram-api-user xtrahuman/udagram-api-user:v1
+      - name: tag reverseproxy image to remote
+        run:
+          docker tag reverseproxy xtrahuman/reverseproxy:v1
+      - name: tag udagram-frontend image to remote
+        run:
+          docker tag udagram-frontend xtrahuman/udagram-frontend:v1
 
       # - name: Run Trivy vulnerability scanner
       #   uses: aquasecurity/trivy-action@master
@@ -47,9 +55,15 @@ jobs:
         run: |
           echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u $DOCKER_REPOSITORY --password-stdin
   
-      - name: Push Image to Docker Hub
+      - name: Push Feed Image to Docker Hub
         run:
           docker push xtrahuman/udagram-api-feed:v1
-        # docker push xtrahuman/udagram-api-user:v1
-        # docker push xtrahuman/reverseproxy:v1
-        # docker push xtrahuman/udagram-frontend:v1
+      - name: Push User Image to Docker Hub
+        run:
+          docker push xtrahuman/udagram-api-user:v1
+      - name: Push reverseproxy Image to Docker Hub
+        run:
+          docker push xtrahuman/reverseproxy:v1
+      - name: Push Frontend Image to Docker Hub
+        run:
+          docker push xtrahuman/udagram-frontend:v1
