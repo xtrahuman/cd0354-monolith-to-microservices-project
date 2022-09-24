@@ -27,10 +27,10 @@ jobs:
       - name: Build Docker Image
         run:
           docker-compose -f docker-compose-build.yaml build --parallel # or repeat and use docker build -t udagram-api-feed ./udagram-api-feed
-          docker tag udagram-api-feed xtrahuman/udagram-api-feed:v1
-          docker tag udagram-api-user xtrahuman/udagram-api-user:v1
-          docker tag reverseproxy xtrahuman/reverseproxy:v1
-          docker tag udagram-frontend xtrahuman/udagram-frontend:v1
+          # docker tag udagram-api-feed xtrahuman/udagram-api-feed:v1
+          # docker tag udagram-api-user xtrahuman/udagram-api-user:v1
+          # docker tag reverseproxy xtrahuman/reverseproxy:v1
+          # docker tag udagram-frontend xtrahuman/udagram-frontend:v1
 
       # - name: Run Trivy vulnerability scanner
       #   uses: aquasecurity/trivy-action@master
