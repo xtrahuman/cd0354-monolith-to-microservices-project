@@ -22,8 +22,8 @@ jobs:
 
     steps:
 
-    - name: Git Checkout
-      uses: actions/checkout@v2
+    # - name: Git Checkout
+    #   uses: actions/checkout@v2
     - name: Build Docker Image
       run:
         docker-compose -f docker-compose-build.yaml build --parallel # or repeat and use docker build -t udagram-api-feed ./udagram-api-feed
