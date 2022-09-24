@@ -49,7 +49,7 @@ jobs:
   
       - name: Push Image to Docker Hub
         run:
-        docker push xtrahuman/udagram-api-feed:v1
+          docker push xtrahuman/udagram-api-feed:v1
         # docker push xtrahuman/udagram-api-user:v1
         # docker push xtrahuman/reverseproxy:v1
         # docker push xtrahuman/udagram-frontend:v1
