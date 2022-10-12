@@ -1,0 +1,137 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: backend-feed
+  labels:
+    app: backend-feed
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: backend-feed
+  template:
+    metadata:
+      labels:
+        app: backend-feed
+    spec:
+      containers:
+      - name: udagram-api-feed
+        image: xtrahuman/udagram-api-feed:v1
+        imagePullPolicy: Always          
+        resources:
+          requests:
+            cpu: "200m"
+          limits:
+            cpu: "500m"
+        ports:
+        - containerPort: 8080
+        env:
+          - name: DOCKER_USERNAME
+            valueFrom:
+              secretKeyRef:
+                name: postgres-secret
+                key: docker_username
+                optional: false # same as default; "mysecret" must exist
+                                # and include a key named "username"
+          - name: DOCKER_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: postgres-secret
+                key: docker_password
+                optional: false # same as default; "mysecret" must exist
+                                # and include a key named "username"
+          - name: POSTGRES_USERNAME
+            valueFrom:
+              secretKeyRef:
+                name: postgres-secret
+                key: postgres_username
+                optional: false # same as default; "mysecret" must exist
+                                # and include a key named "username"
+          - name: POSTGRES_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: postgres-secret
+                key: postgres_password
+                optional: false # same as default; "mysecret" must exist
+                                # and include a key named "password"
+          - name: AWS_ACCESS_KEY_ID
+            valueFrom:
+              secretKeyRef:
+                name: aws-secret
+                key: aws_access_key_id
+                optional: false # same as default; "mysecret" must exist
+                                # and include a key named "password"
+          - name: AWS_SECRET_ACCESS_KEY
+            valueFrom:
+              secretKeyRef:
+                name: aws-secret
+                key: aws_secret_access_key
+                optional: false # same as default; "mysecret" must exist
+                                # and include a key named "password"
+          - name: AWS_SESSION_TOKEN
+            valueFrom:
+              secretKeyRef:
+                name: aws-secret
+                key: aws_session_token
+                optional: false # same as default; "mysecret" must exist
+                                # and include a key named "password"    
+          - name: JWT_SECRET
+            valueFrom:
+              secretKeyRef:
+                name: postgres-secret
+                key: jwt_secret
+                optional: false # same as default; "mysecret" must exist
+                                # and include a key named "password"
+          - name: POSTGRES_HOST
+            valueFrom:
+              configMapKeyRef:
+                name: data-config
+                key: postgres_host
+                optional: false # same as default; "mysecret" must exist
+                                # and include a key named "username"
+          - name: POSTGRES_DB
+            valueFrom:
+              configMapKeyRef:
+                name: data-config
+                key: postgres_db
+                optional: false # same as default; "mysecret" must exist
+                                # and include a key named "password"
+          - name: AWS_BUCKET
+            valueFrom:
+              configMapKeyRef:
+                name: data-config
+                key: aws_bucket
+                optional: false # same as default; "mysecret" must exist
+                                # and include a key named "password"
+          - name: AWS_REGION
+            valueFrom:
+              configMapKeyRef:
+                name: data-config
+                key: aws_region
+                optional: false # same as default; "mysecret" must exist
+                                # and include a key named "password"
+          - name: AWS_PROFILE
+            valueFrom:
+              configMapKeyRef:
+                name: data-config
+                key: aws_profile
+                optional: false # same as default; "mysecret" must exist
+                                # and include a key named "password"
+          - name: URL
+            valueFrom:
+              configMapKeyRef:
+                name: data-config
+                key: url
+                optional: false # same as default; "mysecret" must exist
+                                # and include a key named "password"
+        volumeMounts:
+        - name: aws-secret
+          mountPath: "/root/.aws/"
+          readOnly: true        
+      volumes:
+      - name: aws-secret
+        secret:
+          secretName: aws-secret
+      restartPolicy: Always
+
+# restartPolicy: Never

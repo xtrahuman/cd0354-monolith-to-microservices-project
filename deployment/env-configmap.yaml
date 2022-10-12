@@ -1,58 +1,12 @@
 apiVersion: v1
-kind: Pod
+kind: ConfigMap
 metadata:
-  name: secret-env-pod
-spec:
-  containers:
-  - name: udagram-api-feed
-    image: udagram-api-feed
-  - name: udagram-api-user
-    image: udagram-api-user 
-  - name: udagram-frontend 
-    image: udagram-frontend 
-  - name: reverseproxy 
-    image: reverseproxy  
-    env:
-      - name: POSTGRES_HOST
-        valueFrom:
-          secretKeyRef:
-            name: postgres
-            key: microservicepjt.covwlurzjdrk.us-east-1.rds.amazonaws.com
-            optional: false # same as default; "mysecret" must exist
-                            # and include a key named "username"
-      - name: POSTGRES_DB
-        valueFrom:
-          secretKeyRef:
-            name: postgres
-            key: microservicepjt
-            optional: false # same as default; "mysecret" must exist
-                            # and include a key named "password"
-      - name: AWS_BUCKET
-        valueFrom:
-          secretKeyRef:
-            name: awsbucket
-            key: myawsbucket412430280627
-            optional: false # same as default; "mysecret" must exist
-                            # and include a key named "password"
-      - name: AWS_REGION
-        valueFrom:
-          secretKeyRef:
-            name: awsregion
-            key: us-east-1
-            optional: false # same as default; "mysecret" must exist
-                            # and include a key named "password"
-      - name: AWS_PROFILE
-        valueFrom:
-          secretKeyRef:
-            name: profile
-            key: microservice
-            optional: false # same as default; "mysecret" must exist
-                            # and include a key named "password"
-      - name: URL
-        valueFrom:
-          secretKeyRef:
-            name: url
-            key: http://localhost:8100
-            optional: false # same as default; "mysecret" must exist
-                            # and include a key named "password"
-  restartPolicy: Never
+  name: data-config
+data:
+  # property-like keys; each key maps to a simple value
+  postgres_host: "microservicedata.cqxx3wwfyjmy.us-east-1.rds.amazonaws.com"
+  postgres_db: "microservicedata"
+  aws_bucket: "myawsmyaws740127263396bucket"
+  aws_region: "us-east-1"
+  aws_profile: "udacityLabs"
+  url: "http://localhost:8080"
