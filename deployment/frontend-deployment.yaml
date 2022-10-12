@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: udagram-frontend
-        image: xtrahuman/udagram-frontend:v13
+        image: xtrahuman/udagram-frontend:v14
         imagePullPolicy: Always          
         resources:
           requests:

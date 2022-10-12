@@ -4,9 +4,9 @@ metadata:
   name: data-config
 data:
   # property-like keys; each key maps to a simple value
-  postgres_host: "microservicedata.cqxx3wwfyjmy.us-east-1.rds.amazonaws.com"
-  postgres_db: "microservicedata"
-  aws_bucket: "myawsmyaws740127263396bucket"
+  postgres_host: "microservicedb.catp7eabvv5w.us-east-1.rds.amazonaws.com"
+  postgres_db: "microservicedb"
+  aws_bucket: "myaws852532188089bucket"
   aws_region: "us-east-1"
-  aws_profile: "udacityLabs"
+  aws_profile: "default"
   url: "http://localhost:8080"
